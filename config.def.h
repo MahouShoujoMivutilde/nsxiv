@@ -74,7 +74,7 @@ static const bool ALPHA_LAYER = false;
 #ifdef INCLUDE_THUMBS_CONFIG
 
 /* thumbnail sizes in pixels (width == height): */
-static const int thumb_sizes[] = { 32, 64, 96, 128, 160 };
+static const int thumb_sizes[] = { 96, 192, 288, 384, 480 };
 
 /* thumbnail size at startup, index into thumb_sizes[]: */
 static const int THUMB_SIZE = 3;
@@ -96,7 +96,7 @@ static const keymap_t keys[] = {
 	{ 0,            XK_Return,        g_switch_mode,        None },
 	{ 0,            XK_f,             g_toggle_fullscreen,  None },
 	{ 0,            XK_b,             g_toggle_bar,         None },
-	{ ControlMask,  XK_x,             g_prefix_external,    None },
+	{ 0,            XK_x,             g_prefix_external,    None },
 	{ 0,            XK_g,             g_first,              None },
 	{ 0,            XK_G,             g_n_or_last,          None },
 	{ 0,            XK_r,             g_reload_image,       None },
@@ -110,9 +110,9 @@ static const keymap_t keys[] = {
 	{ ControlMask,  XK_l,             g_scroll_screen,      DIR_RIGHT },
 	{ ControlMask,  XK_Right,         g_scroll_screen,      DIR_RIGHT },
 	{ 0,            XK_plus,          g_zoom,               +1 },
-	{ 0,            XK_KP_Add,        g_zoom,               +1 },
+	{ 0,            XK_i,             g_zoom,               +1 },
 	{ 0,            XK_minus,         g_zoom,               -1 },
-	{ 0,            XK_KP_Subtract,   g_zoom,               -1 },
+	{ 0,            XK_o,             g_zoom,               -1 },
 	{ 0,            XK_m,             g_toggle_image_mark,  None },
 	{ 0,            XK_M,             g_mark_range,         None },
 	{ ControlMask,  XK_m,             g_reverse_marks,      None },
@@ -138,9 +138,11 @@ static const keymap_t keys[] = {
 	{ 0,            XK_R,             t_reload_all,         None },
 
 	{ 0,            XK_n,             i_navigate,           +1 },
+	{ 0,            XK_Right,         i_navigate,           +1 },
 	{ 0,            XK_n,             i_scroll_to_edge,     DIR_LEFT | DIR_UP },
-	{ 0,            XK_space,         i_navigate,           +1 },
+	{ 0,            XK_space,         g_toggle_image_mark,  None },
 	{ 0,            XK_p,             i_navigate,           -1 },
+	{ 0,            XK_Left,          i_navigate,           -1 },
 	{ 0,            XK_p,             i_scroll_to_edge,     DIR_LEFT | DIR_UP },
 	{ 0,            XK_BackSpace,     i_navigate,           -1 },
 	{ 0,            XK_bracketright,  i_navigate,           +10 },
