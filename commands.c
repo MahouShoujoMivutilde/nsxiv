@@ -55,6 +55,8 @@ extern bool extprefix;
 bool cg_quit(arg_t _)
 {
 	unsigned int i;
+	char *lf_id = "";
+	char c_args[4500] = "";
 
 	if (options->to_stdout && markcnt > 0) {
 		for (i = 0; i < filecnt; i++) {
@@ -62,6 +64,15 @@ bool cg_quit(arg_t _)
 				printf("%s%c", files[i].name, options->using_null ? '\0' : '\n');
 		}
 	}
+
+	/* select the current file in lf instance that invoked nsxiv on exit */
+	lf_id = getenv("id");
+	if (lf_id != NULL) {
+		snprintf(c_args, sizeof(c_args), \
+				"lf -remote \"send %s select '%s'\"\n", lf_id, files[fileidx].path);
+		system(c_args);
+	}
+
 	exit(EXIT_SUCCESS);
 }
 
