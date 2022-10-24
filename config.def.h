@@ -91,8 +91,9 @@ static const KeySym KEYHANDLER_ABORT = XK_Escape;
 /* keyboard mappings for image and thumbnail mode: */
 static const keymap_t keys[] = {
 	/* modifiers    key               function              argument */
-	{ 0,            XK_q,             g_quit,               0 },
-	{ 0,            XK_Q,             g_pick_quit,          0 },
+	// on Hyprland sometimes `q` triggers nsxiv to quit on launch,
+	// idk wtf, doesn't happen in imv or mpv (forced to X11 backend)
+	// { 0,            XK_q,             g_quit,               0 },
 	{ 0,            XK_Return,        g_switch_mode,        None },
 	{ 0,            XK_f,             g_toggle_fullscreen,  None },
 	{ 0,            XK_b,             g_toggle_bar,         None },
