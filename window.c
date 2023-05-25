@@ -160,7 +160,7 @@ void win_init(win_t *win)
 
 	/* apply alpha */
 	win->win_bg_postmul = win->win_bg;
-	win_alpha = win_res(db, RES_CLASS ".window.alpha", "1.0");
+	win_alpha = win_res(db, RES_CLASS ".window.alpha", DEFAULT_WIN_ALPHA);
 	alpha = strtof(win_alpha, &endptr);
 	if (!(*endptr == '\0' && alpha >= 0.0 && alpha <= 1.0))
 		error(EXIT_FAILURE, 0, "Error parsing alpha");
