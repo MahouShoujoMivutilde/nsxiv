@@ -432,7 +432,7 @@ static void bar_put(win_bar_t *bar, const char *fmt, ...)
 	va_end(ap);
 }
 
-static void update_info(void)
+static void update_info(bool force)
 {
 	unsigned int i, fn, fw;
 	const char *mark;
@@ -445,7 +445,9 @@ static void update_info(void)
 		appmode_t mode;
 	} prev;
 
-	if (prev.fileidx != fileidx || prev.mode != mode ||
+	// XXX `force` - always update info after keyhandler,
+	// useful for xattr changes / external custom tags
+	if (force || prev.fileidx != fileidx || prev.mode != mode ||
 	    (prev.filepath == NULL || !STREQ(prev.filepath, files[fileidx].path)))
 	{
 		close_info();
@@ -538,7 +540,7 @@ void redraw(void)
 	} else {
 		tns_render(&tns);
 	}
-	update_info();
+	update_info(false);
 	win_draw(&win);
 	reset_timeout(redraw);
 	reset_cursor();
@@ -605,7 +607,7 @@ void handle_key_handler(bool init)
 		         "Getting key handler input (%s to abort)...",
 		         XKeysymToString(KEYHANDLER_ABORT));
 	} else { /* abort */
-		update_info();
+		update_info(false);
 	}
 	win_draw(&win);
 }
@@ -685,7 +687,7 @@ static bool run_key_handler(const char *key, unsigned int mask)
 		img_close(&img, true);
 		load_image(fileidx);
 	} else {
-		update_info();
+		update_info(true);
 	}
 	free(oldst);
 	reset_cursor();
